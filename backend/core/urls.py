@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (
     CSVUploadView,
     DashboardView,
-    RecordListView
+    RecordListView,
+    RecordActionView
 )
 
 urlpatterns = [
@@ -22,5 +23,11 @@ urlpatterns = [
         'records/',
         RecordListView.as_view(),
         name='records'
+    ),
+
+    path(
+        'record/<int:record_id>/<str:action>/',
+        RecordActionView.as_view(),
+        name='record-action'
     ),
 ]

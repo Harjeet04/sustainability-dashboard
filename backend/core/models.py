@@ -2,7 +2,10 @@ from django.db import models
 
 
 class Tenant(models.Model):
-    name = models.CharField(max_length=255)
+
+    name = models.CharField(
+        max_length=255
+    )
 
     def __str__(self):
         return self.name
@@ -83,9 +86,19 @@ class Record(models.Model):
         default='pending'
     )
 
+    suspicious_reason = models.TextField(
+        blank=True,
+        null=True
+    )
+
     approved_at = models.DateTimeField(
         blank=True,
         null=True
+    )
+
+    # NEW FIELD
+    is_locked = models.BooleanField(
+        default=False
     )
 
     created_at = models.DateTimeField(
