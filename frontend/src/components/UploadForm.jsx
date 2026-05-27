@@ -1,26 +1,46 @@
 import { useState } from "react";
 import axios from "axios";
 
-function UploadForm({ refreshData }) {
-  const [file, setFile] = useState(null);
-  const [sourceType, setSourceType] = useState("sap");
-  const [loading, setLoading] = useState(false);
+function UploadForm({
+  refreshData
+}) {
 
-  const handleUpload = async () => {
+  const [file, setFile] =
+    useState(null);
+
+  const [sourceType,
+    setSourceType] =
+    useState("sap");
+
+  const [loading,
+    setLoading] =
+    useState(false);
+
+  const handleUpload =
+    async () => {
+
     if (!file) {
-      alert("Please choose a file");
+      alert(
+        "Please choose a file"
+      );
       return;
     }
 
-    const formData = new FormData();
+    const formData =
+      new FormData();
 
-    formData.append("file", file);
+    formData.append(
+      "file",
+      file
+    );
+
     formData.append(
       "source_type",
       sourceType
     );
 
     try {
+
       setLoading(true);
 
       const response =
@@ -35,7 +55,9 @@ function UploadForm({ refreshData }) {
           }
         );
 
-      console.log(response.data);
+      console.log(
+        response.data
+      );
 
       alert(
         "CSV uploaded successfully"
@@ -46,14 +68,26 @@ function UploadForm({ refreshData }) {
       refreshData();
 
     } catch (error) {
+
       console.log(
         "Upload error:",
-        error.response?.data ||
+        error.response
+          ?.data ||
         error.message
       );
 
-      alert("Upload failed");
+      alert(
+        JSON.stringify(
+          error.response
+            ?.data ||
+          error.message,
+          null,
+          2
+        )
+      );
+
     } finally {
+
       setLoading(false);
     }
   };
@@ -61,15 +95,22 @@ function UploadForm({ refreshData }) {
   return (
     <div
       style={{
-        border: "1px solid #ddd",
-        padding: "20px",
-        marginBottom: "30px",
+        border:
+          "1px solid #ddd",
+        padding:
+          "20px",
+        marginBottom:
+          "30px",
       }}
     >
-      <h2>Upload CSV</h2>
+      <h2>
+        Upload CSV
+      </h2>
 
       <select
-        value={sourceType}
+        value={
+          sourceType
+        }
         onChange={(e) =>
           setSourceType(
             e.target.value
@@ -106,8 +147,12 @@ function UploadForm({ refreshData }) {
       <br />
 
       <button
-        onClick={handleUpload}
-        disabled={loading}
+        onClick={
+          handleUpload
+        }
+        disabled={
+          loading
+        }
       >
         {loading
           ? "Uploading..."
