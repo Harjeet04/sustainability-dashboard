@@ -71,10 +71,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # DATABASE (Render PostgreSQL)
 DATABASES = {
-    "default":
-    dj_database_url.parse(
+    "default": dj_database_url.parse(
         os.environ.get(
-            "DATABASE_URL"
+            "DATABASE_URL",
+            "postgresql://postgres:2603@localhost:5432/first"
         )
     )
 }
