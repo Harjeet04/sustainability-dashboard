@@ -1,9 +1,9 @@
 import UploadForm from "../components/UploadForm";
+import API_BASE from "../api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Dashboard() {
-
   const [dashboard, setDashboard] =
     useState({});
 
@@ -34,7 +34,7 @@ function Dashboard() {
 
       const response =
         await axios.get(
-          "http://localhost:8000/api/dashboard/"
+          `${API_BASE}/api/dashboard/`
         );
 
       setDashboard(
@@ -53,7 +53,7 @@ function Dashboard() {
 
       const response =
         await axios.get(
-          "http://localhost:8000/api/records/"
+          `${API_BASE}/api/records/`
         );
 
       setRecords(
@@ -74,7 +74,7 @@ function Dashboard() {
     try {
 
       await axios.patch(
-        `http://localhost:8000/api/record/${id}/${action}/`
+        `${API_BASE}/api/record/${id}/${action}/`
       );
 
       refreshData();
@@ -371,64 +371,34 @@ function Dashboard() {
                   "#111827",
               }}
             >
-              <th style={thStyle}>
-                ID
-              </th>
-
-              <th style={thStyle}>
-                Category
-              </th>
-
-              <th style={thStyle}>
-                Status
-              </th>
-
-              <th style={thStyle}>
-                Quantity
-              </th>
-
-              <th style={thStyle}>
-                Unit
-              </th>
-
-              <th style={thStyle}>
-                Date
-              </th>
-
-              <th style={thStyle}>
-                Source
-              </th>
-
-              <th style={thStyle}>
-                Actions
-              </th>
+              <th style={thStyle}>ID</th>
+              <th style={thStyle}>Category</th>
+              <th style={thStyle}>Status</th>
+              <th style={thStyle}>Quantity</th>
+              <th style={thStyle}>Unit</th>
+              <th style={thStyle}>Date</th>
+              <th style={thStyle}>Source</th>
+              <th style={thStyle}>Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredRecords.map(
-              (
-                record
-              ) => (
+              (record) => (
                 <tr
-                  key={
-                    record.id
-                  }
+                  key={record.id}
                   style={{
                     backgroundColor:
                       getRowColor(
                         record.status
                       ),
-                    color:
-                      "#000",
+                    color: "#000",
                     fontWeight:
                       "600",
                   }}
                 >
                   <td style={tdStyle}>
-                    {
-                      record.id
-                    }
+                    {record.id}
                   </td>
 
                   <td style={tdStyle}>
@@ -444,8 +414,7 @@ function Dashboard() {
                       }
                     </div>
 
-                    {record
-                      .suspicious_reason && (
+                    {record.suspicious_reason && (
                       <small>
                         ⚠{" "}
                         {
@@ -455,8 +424,7 @@ function Dashboard() {
                       </small>
                     )}
 
-                    {record
-                      .is_locked && (
+                    {record.is_locked && (
                       <div
                         style={{
                           marginTop:
@@ -471,18 +439,15 @@ function Dashboard() {
                   </td>
 
                   <td style={tdStyle}>
-                    {record.normalized_quantity ??
-                      "-"}
+                    {record.normalized_quantity ?? "-"}
                   </td>
 
                   <td style={tdStyle}>
-                    {record.normalized_unit ??
-                      "-"}
+                    {record.normalized_unit ?? "-"}
                   </td>
 
                   <td style={tdStyle}>
-                    {record.normalized_date ??
-                      "-"}
+                    {record.normalized_date ?? "-"}
                   </td>
 
                   <td style={tdStyle}>
@@ -501,10 +466,6 @@ function Dashboard() {
                           record.is_locked
                             ? 0.5
                             : 1,
-                        cursor:
-                          record.is_locked
-                            ? "not-allowed"
-                            : "pointer",
                       }}
                       disabled={
                         record.is_locked
@@ -528,10 +489,6 @@ function Dashboard() {
                           record.is_locked
                             ? 0.5
                             : 1,
-                        cursor:
-                          record.is_locked
-                            ? "not-allowed"
-                            : "pointer",
                       }}
                       disabled={
                         record.is_locked
@@ -602,7 +559,6 @@ function Card({
   title,
   value
 }) {
-
   return (
     <div
       style={{

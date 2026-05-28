@@ -1,10 +1,8 @@
+import API_BASE from "../api";
 import { useState } from "react";
 import axios from "axios";
 
-function UploadForm({
-  refreshData
-}) {
-
+function UploadForm({ refreshData }) {
   const [file, setFile] =
     useState(null);
 
@@ -45,7 +43,7 @@ function UploadForm({
 
       const response =
         await axios.post(
-          "http://localhost:8000/api/upload/",
+          `${API_BASE}/api/upload/`,
           formData,
           {
             headers: {
@@ -71,15 +69,13 @@ function UploadForm({
 
       console.log(
         "Upload error:",
-        error.response
-          ?.data ||
+        error.response?.data ||
         error.message
       );
 
       alert(
         JSON.stringify(
-          error.response
-            ?.data ||
+          error.response?.data ||
           error.message,
           null,
           2
