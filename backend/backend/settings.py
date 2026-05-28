@@ -119,7 +119,7 @@ STATIC_ROOT = (
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://sustainability-dashboard-livid.vercel.app",
+    "https://sustainability-dashboard-six.vercel.app",
 ]
 
 
